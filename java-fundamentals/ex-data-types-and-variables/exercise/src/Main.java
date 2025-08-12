@@ -10,6 +10,7 @@ public class Main {
         //2 playerName → store the name of a soccer player.
         String playerName = "Mark Messi";
         //3 jerseyNumber → store the player's jersey number.
+        int jerseyNumber = 1;
         //4 position → store the player’s field position (e.g., "Goalkeeper").
         //5 isStarter → store whether the player is a starter (true or false).
         //6 teamName → store the name of the player’s team.

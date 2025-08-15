@@ -10,9 +10,13 @@ public class ShoppingCartApp {
 
         //EXERCISE ASSIGNMENT HERE
         //Create enums for order status and shipping status.
+        enum OrderStatus { PENDING, PROCESSING, SHIPPED, DELIVERED }
+        enum ShippingStatus { STANDARD, TWO_DAY, OVERNIGHT }
         // Here are the options as per decisions made by the team:
             //Order status: pending, processing, shipped, delivered
+        OrderStatus order = OrderStatus.PROCESSING;
             // Shipping status: standard, 2-day, overnight
+        ShippingStatus shipping = ShippingStatus.TWO_DAY;
 
         //Assign variables to each of the elements from above.
         int productId = 1;

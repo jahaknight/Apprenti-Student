@@ -17,6 +17,16 @@ public class ShoppingCartApp {
     public static void main(String[] args) {
         System.out.println("Welcome to the shopping cart app!");
 
+        // Business name, contact info, item description
+        String businessName = "Coffee Haven";
+        String contactInfo = "Email: info@coffeehaven.com | Phone: (555) 123-4567";
+        String itemDescription = "Freshly roasted premium coffee beans";
+
+        System.out.println("Business: " + businessName);
+        System.out.println("Contact: " + contactInfo);
+        System.out.println("Item: " + itemDescription);
+        System.out.println();
+
         int productId = 1;
         int productCategory = 2;
         double productCost = 2.56;

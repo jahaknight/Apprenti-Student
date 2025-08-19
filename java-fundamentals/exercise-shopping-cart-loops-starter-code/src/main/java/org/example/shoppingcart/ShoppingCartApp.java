@@ -4,33 +4,44 @@ import java.util.Scanner;
 
 public class ShoppingCartApp {
   public static void main(String[] args) {
-    Scanner console = new java.util.Scanner(System.in);
+      Scanner console = new java.util.Scanner(System.in);
+      //TODO: Add confirmation Variable
+      boolean confirm = false;
+      String taxExempt = "";
+      String shipping = "";
+      String promoCode = "";
+      int orderQuantity = 0;
 
-    System.out.println("Welcome to the shopping cart app!");
 
-    boolean confirm = false;
+      System.out.println("Welcome to the shopping cart app!");
 
-    String taxExempt = "";
-    String shipping = "";
-    String promoCode = "";
-    int orderQuantity = 0;
 
-    // Prompt for tax exempt
-    System.out.println("Are you tax-exempt? (y/n)");
-    taxExempt = console.nextLine();
+      //TODO: START loop
+      while (!confirm) {
 
-    // Prompt for shipping
-    System.out.println("Shipping? (standard/overnight/twoday)");
-    shipping = console.nextLine();
 
-    // Prompt for order quantity
-    System.out.println("Order quantity?");
-    orderQuantity = Integer.parseInt(console.nextLine());
+      // Prompt for tax exempt
+      System.out.println("Are you tax-exempt? (y/n)");
+      taxExempt = console.nextLine();
 
-    // Prompt for promo code
-    System.out.println("Promo code for free shipping?");
-    promoCode = console.nextLine();
+      // Prompt for shipping
+      System.out.println("Shipping? (standard/overnight/twoday)");
+      shipping = console.nextLine();
 
+      // Prompt for order quantity
+      System.out.println("Order quantity?");
+      orderQuantity = Integer.parseInt(console.nextLine());
+
+      // Prompt for promo code
+      System.out.println("Promo code for free shipping?");
+      promoCode = console.nextLine();
+      // TODO: Prompt for order confirmation and print out order if confirmed
+          System.out.println("Confirm order? y=yes");
+      if (console.nextLine().toLowerCase().equalsIgnoreCase("y")){
+          confirm = true;
+      }
+
+  }
     // Print details
     System.out.println("\nDetails:");
     System.out.println("Tax-exempt: " + taxExempt);

@@ -14,6 +14,6 @@ public class BankAccount {
     }
 
     public void setOwner(String owner){
-        this.owner
+        this.owner = owner;
     }
 }

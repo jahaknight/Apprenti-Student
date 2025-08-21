@@ -30,36 +30,26 @@ public class ShoppingCartApp {
     while (!confirm) {
       int addressIndex = 0;
       int sizeIndex = 0;
+
       // Prompt for tax exempt
-      System.out.println("Are you tax-exempt? (y/n)");
-      taxExempt = console.nextLine();
+      taxExempt = promptUserForString("Are you tax-exempt? (y/n)", console);
 
       // Prompt for shipping address
-      for (int i = 0; i < addresses.length; i++) {
-        System.out.println((i + 1) + ". " + addresses[i]);
-      }
-      System.out.println("Shipping address?");
-      String address = console.nextLine();
-      addressIndex = Integer.parseInt(address);
-      // Prompt for shipping
-      System.out.println("Shipping? (standard/overnight/twoday)");
-      shipping = console.nextLine();
+     displayChoices(addresses);
+     addressIndex = promptUserForInt("Shipping address?", console);
+
+     // Prompt for shipping
+     shipping = promptUserForString("Shipping? (standard/overnight/two-day)", console);
 
       // Prompt for order quantity
-      System.out.println("Order quantity?");
-      int orderQuantity = Integer.parseInt(console.nextLine());
+    int orderQuantity = promptUserForInt("Order quantity", console);
 
       // Prompt for Size
-      for (int i = 0; i < sizes.length; i++) {
-        System.out.println((i + 1) + ". " + sizes[i]);
-      }
-      System.out.println("Size?");
-      String size = console.nextLine();
-      sizeIndex = Integer.parseInt(size);
+    displayChoices(sizes);
+    sizeIndex = promptUserForInt("Size", console);
 
       // Prompt for promo code
-      System.out.println("Promo code for free shipping?");
-      promoCode = console.nextLine();
+    promoCode = promptUserForString("Promo code for free shipping", console);
 
       // Print details
       System.out.println("\nDetails:");
@@ -74,5 +64,26 @@ public class ShoppingCartApp {
     }
 
     System.out.println("Bye");
+    console.close();
+  }
+
+  // Display a list of choices from an array
+  // Returns nothing. Needs an array of choices (strings)
+  private  static void displayChoices(String[] choices) {
+      for (int i = 0; i < choices.length; i++){
+          System.out.println((i + 1) + "." + choices[i]);
+      }
+  }
+
+  // Prompt user for strings. Returns strings
+  private static String promptUserForString(String prompt, java.util.Scanner console){
+      System.out.println(prompt);
+      return console.nextLine();
+  }
+
+  // Prompt user for integar
+  private static int promptUserForInt(String prompt, java.util.Scanner console){
+      System.out.println(prompt);
+      return Integer.parseInt(console.nextLine());
   }
 }

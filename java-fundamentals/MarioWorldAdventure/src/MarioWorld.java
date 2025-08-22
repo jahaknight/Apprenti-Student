@@ -20,24 +20,24 @@ public class MarioWorld {
     // First-visit narrative (index-aligned to LOCALE_NAMES)
     private static final String[] FIRST_VISIT_LINES = {
             // Toad's House
-            "You have entered Toad's House 🍄\nFind Toad under a Mushroom... You found Toad!\nAsk Toad for the Star:",
+            "You have entered Toad's House 🍄\nFind Toad under a Mushroom... You found Toad!",
             // Luigi's Mansion
-            "You have entered Luigi's Mansion 🏯\nGuess the number of Ghosts 👻 to collect Star: ",
+            "You have entered Luigi's Mansion 🏯",
             // Yoshi's Island
-            "You have arrived at Yoshi's Island 🦖\nYoshi loves fruit! Type the fruit he’s thinking of (apple/berry/banana):",
+            "You have arrived at Yoshi's Island 🦖",
             // Princess Peach's Garden
-            "You stroll into Princess Peach’s Garden 🌸\nCount the roses to impress Peach and earn a Star!",
+            "You stroll into Princess Peach's Garden 🌸",
             // Toadette's Workshop
-            "Clink! Clank! Toadette’s Workshop 🛠️\nSolve a quick gear math to get a Star."
+            "Clink! Clank! Toadette's Workshop 🛠️"
     };
 
     // Revisit narrative (index-aligned to LOCALE_NAMES)
     private static final String[] REVISIT_LINES = {
-            "You have entered Toad's House 🍄\nThis looks familiar...you’ve been here before. 🤔\nAsk Toad for the Star: ",
-            "You have entered Luigi's Mansion 🏯\nCobwebs look rearranged… but you’ve been here.\nGuess the number of Ghosts 👻 to collect Star: ",
-            "Back on Yoshi’s Island 🦖\nThe waves look the same as last time.\n Yoshi loves fruit! Type the fruit he’s thinking of (apple/berry/banana): ",
-            "Princess Peach’s Garden 🌸\nYou’ve walked these paths before.\nCount the roses to impress Peach and earn a Star!",
-            "Toadette wipes a wrench: \"Back again, huh?\" 🛠️\nSolve a quick gear math to get a Star."
+            "You have entered Toad's House 🍄\nThis looks familiar...you've been here before. 🤔",
+            "You have entered Luigi's Mansion 🏯\nCobwebs look rearranged… but you've been here.",
+            "Back on Yoshi's Island 🦖\nThe waves look the same as last time.",
+            "Princess Peach's Garden 🌸\nYou've walked these paths before.",
+            "Toadette wipes a wrench: \"Back again, huh?\" 🛠️"
     };
 
     // Track whether each locale has been visited
@@ -150,6 +150,7 @@ public class MarioWorld {
         // First visit path
         switch (index) {
             case 0: // Toad's House 🍄 — simple ask
+                System.out.println("Ask Toad for the Star: ");
                 // Read anything; Toad gives a Star
                 in.nextLine();
                 System.out.println("Toad hands you a Star ⭐️ Nice!");
@@ -159,6 +160,7 @@ public class MarioWorld {
             case 1: // Luigi's Mansion 🏯 — guess ghost count
                 int numberOfGhosts = random.nextInt(10) + 1; // 1..10
                 for (int i = 0; i < numberOfGhosts; i++) System.out.print("👻");
+                System.out.print("\nGuess the number of Ghosts 👻 to collect Star: ");
                 while (true) {
                     Integer guess = readIntOrNull();
                     if (guess == null) {
@@ -176,16 +178,21 @@ public class MarioWorld {
                 break;
 
             case 2: // Yoshi's Island 🦖 — simple word choice
-                String fruit = in.nextLine().trim().toLowerCase();
-                if (fruit.equals("banana") || fruit.equals("apple") || fruit.equals("berry")) {
-                    System.out.println("Yoshi is thrilled! You get a Star ⭐️");
-                    starEarned[index] = true;
-                } else {
-                    System.out.println("Yoshi tilts his head… maybe next time! (No Star)");
+                System.out.println("Yoshi loves fruit! Type the fruit he's thinking of (apple/berry/banana): ");
+                String fruit = "";
+                while(true) {
+                    fruit = in.nextLine().trim().toLowerCase();
+                    if (fruit.equals("banana") || fruit.equals("apple") || fruit.equals("berry")) {
+                        System.out.println("Yoshi is thrilled! You get a Star ⭐️");
+                        starEarned[index] = true;
+                        break;
+                    } else {
+                        System.out.println("Yoshi tilts his head… maybe next time! (No Star). Please enter valid fruit option: ");
+                    }
                 }
-                break;
 
-            case 3: // Princess Peach’s Garden 🌸 — count roses
+            case 3: // Princess Peach's Garden 🌸 — count roses
+                System.out.println("Count the roses to impress Peach and earn a Star!");
                 int roses = random.nextInt(5) + 5; // 5..9
                 for (int i = 0; i < roses; i++) System.out.print("🌹");
                 System.out.print("\nHow many roses did you count? ");
@@ -198,7 +205,8 @@ public class MarioWorld {
                 }
                 break;
 
-            case 4: // Toadette’s Workshop 🛠️ — mini math
+            case 4: // Toadette's Workshop 🛠️ — mini math
+                System.out.println("Solve a quick gear math to get a Star.");
                 int a = random.nextInt(6) + 2; // 2..7
                 int b = random.nextInt(6) + 2; // 2..7
                 System.out.print("Tighten gear ratio! What is " + a + " × " + b + "? ");
@@ -220,7 +228,7 @@ public class MarioWorld {
     }
 
     // ==================================
-    // Bowser’s Castle (requires 5 Stars)
+    // Bowser's Castle (requires 5 Stars)
     // ==================================
     private static void visitBowser() {
         System.out.println("\nCongratulations you have unlocked Bowser's Castle!! 🏰");

@@ -22,7 +22,7 @@ public class MarioWorld {
             // Toad's House
             "You have entered Toad's House 🍄\nFind Toad under a Mushroom... You found Toad!\nAsk Toad for the Star:",
             // Luigi's Mansion
-            "You have entered Luigi's Mansion 🏯",
+            "You have entered Luigi's Mansion 🏯\nGuess the number of Ghosts 👻 to collect Star: ",
             // Yoshi's Island
             "You have arrived at Yoshi's Island 🦖\nYoshi loves fruit! Type the fruit he’s thinking of (apple/berry/banana):",
             // Princess Peach's Garden
@@ -33,11 +33,11 @@ public class MarioWorld {
 
     // Revisit narrative (index-aligned to LOCALE_NAMES)
     private static final String[] REVISIT_LINES = {
-            "You have entered Toad's House 🍄\nThis looks familiar...you’ve been here before. 🤔",
-            "You have entered Luigi's Mansion 🏯\nCobwebs look rearranged… but you’ve been here.",
-            "Back on Yoshi’s Island 🦖\nThe waves look the same as last time.",
-            "Princess Peach’s Garden 🌸\nYou’ve walked these paths before.",
-            "Toadette wipes a wrench: \"Back again, huh?\" 🛠️"
+            "You have entered Toad's House 🍄\nThis looks familiar...you’ve been here before. 🤔\nAsk Toad for the Star: ",
+            "You have entered Luigi's Mansion 🏯\nCobwebs look rearranged… but you’ve been here.\nGuess the number of Ghosts 👻 to collect Star: ",
+            "Back on Yoshi’s Island 🦖\nThe waves look the same as last time.\n Yoshi loves fruit! Type the fruit he’s thinking of (apple/berry/banana): ",
+            "Princess Peach’s Garden 🌸\nYou’ve walked these paths before.\nCount the roses to impress Peach and earn a Star!",
+            "Toadette wipes a wrench: \"Back again, huh?\" 🛠️\nSolve a quick gear math to get a Star."
     };
 
     // Track whether each locale has been visited
@@ -52,12 +52,11 @@ public class MarioWorld {
         boolean running = true;
 
         System.out.println("   Welcome to Mario World 🕹️   ");
-        System.out.println(" ⭐️ Collect 2 Stars to unlock Bowser's Castle ⭐️ ");
-
+        System.out.println(" ⭐️ Collect 5 Stars to unlock Bowser's Castle ⭐️ ");
+        System.out.println("\nYou've landed at Mario's Museum! There are paintings in front of you: ");
         // ====== Main Hub Loop ======
         while (running) {
             // Hub Menu
-            System.out.println("\nYou've landed at Mario's Museum! There are paintings in front of you: ");
             System.out.println("Which painting would you like to jump into? 🖌️");
             // 1..N locales from array
             for (int i = 0; i < LOCALE_NAMES.length; i++) {
@@ -67,7 +66,7 @@ public class MarioWorld {
             int bowserMenuNumber = LOCALE_NAMES.length + 1;
             int exitMenuNumber = LOCALE_NAMES.length + 2;
 
-            System.out.println("[" + bowserMenuNumber + "] Bowser's Castle 🏰 (locked until you have 2 Stars)");
+            System.out.println("[" + bowserMenuNumber + "] Bowser's Castle 🏰 (locked until you have 5 Stars)");
             System.out.println("[" + exitMenuNumber + "] Exit 🏃🏽‍♂️");
             System.out.print("Enter a number (1-" + exitMenuNumber + "): ");
 
@@ -85,13 +84,13 @@ public class MarioWorld {
                 visitLocale(choice - 1);
             } else if (choice == bowserMenuNumber) {
                 // Visit Bowser's Castle (must have 2 stars)
-                if (totalStars() >= 2) {
+                if (totalStars() >= 5) {
                     visitBowser();
                     // After Bowser round, offer restart
                     running = askPlayAgainOrQuit();
                 } else {
                     System.out.println("You bounced off the paintings!");
-                    System.out.println(" ⭐ 2 Stars must be collected to enter ⭐️ ");
+                    System.out.println(" ⭐ 5 Stars must be collected to enter ⭐️ ");
                 }
             } else if (choice == exitMenuNumber) {
                 // Exit Game
@@ -137,16 +136,18 @@ public class MarioWorld {
     // - Each locale has a small interaction to earn Star
     // ==================================================
     private static void visitLocale(int index) {
-        System.out.println("\nYou have entered " + LOCALE_NAMES[index]);
         if (visited[index]) {
             System.out.println(REVISIT_LINES[index]);
             // Already visited; nothing more needed
-            return;
+            if (starEarned[index]) {
+                return;
+            }
+        }
+        else {
+            System.out.println(FIRST_VISIT_LINES[index]);
         }
 
         // First visit path
-        System.out.println(FIRST_VISIT_LINES[index]);
-
         switch (index) {
             case 0: // Toad's House 🍄 — simple ask
                 // Read anything; Toad gives a Star
@@ -158,7 +159,6 @@ public class MarioWorld {
             case 1: // Luigi's Mansion 🏯 — guess ghost count
                 int numberOfGhosts = random.nextInt(10) + 1; // 1..10
                 for (int i = 0; i < numberOfGhosts; i++) System.out.print("👻");
-                System.out.print("\nGuess the number of Ghosts 👻 to collect Star: ");
                 while (true) {
                     Integer guess = readIntOrNull();
                     if (guess == null) {
@@ -220,7 +220,7 @@ public class MarioWorld {
     }
 
     // ==================================
-    // Bowser’s Castle (requires 2 Stars)
+    // Bowser’s Castle (requires 5 Stars)
     // ==================================
     private static void visitBowser() {
         System.out.println("\nCongratulations you have unlocked Bowser's Castle!! 🏰");
@@ -254,21 +254,27 @@ public class MarioWorld {
     // Ask to play again; if yes, reset arrays and continue game
     // ==========================================================
     private static boolean askPlayAgainOrQuit() {
-        System.out.print("Play Again? (y/n) 🕹️ ");
-        String gameRestart = in.nextLine().trim();
-        if (gameRestart.equalsIgnoreCase("y")) {
-            // reset state
-            for (int i = 0; i < visited.length; i++) {
-                visited[i] = false;
-                starEarned[i] = false;
+        boolean playAgainValid = false;
+        boolean playAgain = false;
+        while (!playAgainValid) {
+            System.out.print("Play Again? (y/n) 🕹️ ");
+            String gameRestart = in.nextLine().trim();
+            if (gameRestart.equalsIgnoreCase("y")) {
+                // reset state
+                for (int i = 0; i < visited.length; i++) {
+                    visited[i] = false;
+                    starEarned[i] = false;
+                }
+                playAgainValid = true;
+                playAgain = true; // keep running
+            } else if (gameRestart.equalsIgnoreCase("n")) {
+                playAgainValid = true;
+                playAgain = false; // stop running
+            } else {
+                System.out.println("Invalid input. Try again.");
             }
-            return true; // keep running
-        } else if (gameRestart.equalsIgnoreCase("n")) {
-            return false; // stop running
-        } else {
-            System.out.println("Invalid input. Returning to menu.");
-            return true; // fall back to running
         }
+        return playAgain;
     }
 }
 

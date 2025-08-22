@@ -2,149 +2,273 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class MarioWorld {
-    public static void main(String[] args){
-        Scanner in = new Scanner(System.in);
 
-    // Initialize Variables
-        boolean visitedToadsHouse = false;
-        boolean visitedLuigisMansion = false;
-        boolean starToad = false;
-        boolean starLuigi = false;
+    // ====== Global Scanner (single instance) ======
+    private static final Scanner in = new Scanner(System.in);
+    private static final Random random = new Random();
+
+    // ====== Game State Arrays ======
+    // 5 distinct locations (excluding Bowser & Exit)
+    private static final String[] LOCALE_NAMES = {
+            "Toad's House 🍄",
+            "Luigi's Mansion 🏯",
+            "Yoshi's Island 🦖",
+            "Princess Peach's Garden 🌸",
+            "Toadette's Workshop 🛠️"
+    };
+
+    // First-visit narrative (index-aligned to LOCALE_NAMES)
+    private static final String[] FIRST_VISIT_LINES = {
+            // Toad's House
+            "You have entered Toad's House 🍄\nFind Toad under a Mushroom... You found Toad!\nAsk Toad for the Star:",
+            // Luigi's Mansion
+            "You have entered Luigi's Mansion 🏯",
+            // Yoshi's Island
+            "You have arrived at Yoshi's Island 🦖\nYoshi loves fruit! Type the fruit he’s thinking of (apple/berry/banana):",
+            // Princess Peach's Garden
+            "You stroll into Princess Peach’s Garden 🌸\nCount the roses to impress Peach and earn a Star!",
+            // Toadette's Workshop
+            "Clink! Clank! Toadette’s Workshop 🛠️\nSolve a quick gear math to get a Star."
+    };
+
+    // Revisit narrative (index-aligned to LOCALE_NAMES)
+    private static final String[] REVISIT_LINES = {
+            "You have entered Toad's House 🍄\nThis looks familiar...you’ve been here before. 🤔",
+            "You have entered Luigi's Mansion 🏯\nCobwebs look rearranged… but you’ve been here.",
+            "Back on Yoshi’s Island 🦖\nThe waves look the same as last time.",
+            "Princess Peach’s Garden 🌸\nYou’ve walked these paths before.",
+            "Toadette wipes a wrench: \"Back again, huh?\" 🛠️"
+    };
+
+    // Track whether each locale has been visited
+    private static final boolean[] visited = new boolean[LOCALE_NAMES.length];
+
+    // Track Stars earned per locale (parallel to visited)
+    private static final boolean[] starEarned = new boolean[LOCALE_NAMES.length];
+
+    public static void main(String[] args) {
+
+        // ====== Initialize Variables ======
         boolean running = true;
 
         System.out.println("   Welcome to Mario World 🕹️   ");
         System.out.println(" ⭐️ Collect 2 Stars to unlock Bowser's Castle ⭐️ ");
-        while (running){
+
+        // ====== Main Hub Loop ======
+        while (running) {
             // Hub Menu
-            System.out.println("You've landed at Mario's Museum! There are 4 paintings in front of you: ");
+            System.out.println("\nYou've landed at Mario's Museum! There are paintings in front of you: ");
             System.out.println("Which painting would you like to jump into? 🖌️");
-            System.out.println("[1] Toad's House 🍄");
-            System.out.println("[2] Luigi's Mansion 🏯");
-            System.out.println("[3] Bowser's Castle 🏰(locked until you have 2 Stars)");
-            System.out.println("[4] Exit 🏃🏽‍♂️");
-            System.out.println("Enter 1, 2, 3, or 4: ");
-            int input = 0;
-            while(true){
-                try{
-                    input = Integer.parseInt(in.nextLine());
-                    break;
-                } catch (Exception e) {
-                    System.out.println("Invalid input. Enter 1, 2, 3, or 4: ");
-                }
+            // 1..N locales from array
+            for (int i = 0; i < LOCALE_NAMES.length; i++) {
+                System.out.println("[" + (i + 1) + "] " + LOCALE_NAMES[i]);
             }
-            switch (input){
-                // Visit Toads House (say something to collect star)
-                case 1:
-                    if (visitedToadsHouse){
-                        // Location 1 : Toad's House
-                        System.out.println("You have entered Toad's House 🍄");
-                        System.out.println("This looks familiar...you have been here before.🤔");
-                    } else{
-                        System.out.println("You have entered Toad's House 🍄");
-                        System.out.println("Find Toad under Mushroom");
-                        System.out.println("You've found Toad!");
-                        System.out.println("Ask Toad for the Star");
-                        String askstar = in.nextLine();
-                        System.out.println("Toad hands you a Star ⭐️ Nice!");
-                        visitedToadsHouse = true;
-                        starToad = true;
-                    }
-                    break;
-                // Visit Luigi's Mansion (guess correct amount of ghosts to collect star)
-                case 2:
-                    if (visitedLuigisMansion){
-                        // Location 2 : Luigi's Mansion
-                        System.out.println("You have entered Luigi's Mansion 🏯");
-                        System.out.println("You have been here before.");
-                    } else{
-                        System.out.println("You have entered Luigi's Mansion 🏯");
-                        Random random = new Random();
-                        int numberOfGhosts = random.nextInt(10) + 1;
-                        for (int i = 0; i < numberOfGhosts; i++) {
-                            System.out.print("👻");
-                        }
-                        System.out.println("\nGuess the number of Ghosts 👻 to collect Star: ");
-                        while(true){
-                            try{
-                                input = Integer.parseInt(in.nextLine());
-                                if(input==numberOfGhosts){
-                                    System.out.println("You guessed correctly!! You get a Star ⭐️");
-                                    break;
-                                }
-                                System.out.println("Guess Again");
-                                continue;
-                            } catch (Exception e) {
-                                System.out.println("Invalid input. Enter a number: ");
-                            }
-                        }
-                        visitedLuigisMansion = true;
-                        starLuigi = true;
-                    }
-                    break;
-                // Visit Bowser's Castle (must have 2 stars and fight Bowser to save princess peach)
-                case 3:
-                    if (starToad && starLuigi) {
-                        // Location 3 : Bowser's Castle
-                        System.out.println("Congratulations you have unlocked Bowser's Castle!! 🏰");
-                        System.out.println("Fight Bowser to save Princess Peach 👸🏼");
-                        System.out.println("[1] Ground Pound 🧱");
-                        System.out.println("[2] Fire Ball ☄️ ");
-                        System.out.println("[3] Star Power 🌟");
-                        while(true){
-                            try{
-                                input = Integer.parseInt(in.nextLine());
-                                break;
-                            } catch (Exception e) {
-                                System.out.println("Invalid input. Enter 1, 2, 3: ");
-                            }
-                        }
-                        if(input == 1){
-                            System.out.println("Ground Pound was blocked by Bowsers shell");
-                            System.out.println("You Lose ❌");
-                        } else if(input == 2){
-                            System.out.println("Fire doesn't work on Bowser 🔥");
-                            System.out.println("You Lose ❌");
-                        } else{
-                            System.out.println("Star power destroys Bowser 💫🐢!!!");
-                            System.out.println("You've saved Princess Peach! 👸🏼 You Won 🏆" );
-                        }
-                        // restart logic if true (reset variables)
-                        System.out.println("Play Again? (y/n) 🕹️");
-                        String gameRestart = "";
-                        while(true){
-                            gameRestart = in.nextLine();
-                            if(gameRestart.equalsIgnoreCase("y")) {
-                                visitedToadsHouse = false;
-                                visitedLuigisMansion = false;
-                                starToad = false;
-                                starLuigi = false;
-                                break;
-                            } else if(gameRestart.equalsIgnoreCase("n")){
-                                running = false;
-                                break;
-                            }
-                            else{
-                                System.out.println("Invalid input. Please enter y or n");
-                            }
-                        }
-                    } else{
-                        System.out.println("You bounced off the paintings");
-                        System.out.println(" ⭐ 2 Stars must be collected to enter ⭐️ ");
+            // Bowser and Exit come after locales
+            int bowserMenuNumber = LOCALE_NAMES.length + 1;
+            int exitMenuNumber = LOCALE_NAMES.length + 2;
 
-                    }
-                    break;
+            System.out.println("[" + bowserMenuNumber + "] Bowser's Castle 🏰 (locked until you have 2 Stars)");
+            System.out.println("[" + exitMenuNumber + "] Exit 🏃🏽‍♂️");
+            System.out.print("Enter a number (1-" + exitMenuNumber + "): ");
+
+            // ====== Read menu choice with exception handling ======
+            Integer choice = readIntOrNull();
+            if (choice == null) {
+                // Invalid (non-numeric) -> return to start of the menu (per lab)
+                System.out.println("Invalid input. Returning to menu.");
+                continue;
+            }
+
+            // ====== Process Menu Choice ======
+            if (choice >= 1 && choice <= LOCALE_NAMES.length) {
+                // Visit one of the 5 locales
+                visitLocale(choice - 1);
+            } else if (choice == bowserMenuNumber) {
+                // Visit Bowser's Castle (must have 2 stars)
+                if (totalStars() >= 2) {
+                    visitBowser();
+                    // After Bowser round, offer restart
+                    running = askPlayAgainOrQuit();
+                } else {
+                    System.out.println("You bounced off the paintings!");
+                    System.out.println(" ⭐ 2 Stars must be collected to enter ⭐️ ");
+                }
+            } else if (choice == exitMenuNumber) {
                 // Exit Game
-                case 4:
-                    running = false;
-                    break;
-                default:
-                    break;
-
-
+                running = false;
+            } else {
+                // Out-of-range -> return to menu (you could message here if you want)
+                System.out.println("Please enter a valid menu option.");
             }
         }
-        // Ending
-        System.out.println("Thanks for visiting Mario's Museum!!!");
 
+        // ====== Ending ======
+        System.out.println("\nThanks for visiting Mario's Museum!!!");
+    }
+
+    // ==========================
+    // Helper: total stars earned
+    // ==========================
+    private static int totalStars() {
+        int sum = 0;
+        for (boolean s : starEarned) {
+            if (s) sum++;
+        }
+        return sum;
+    }
+
+    // =========================================
+    // Helper: robust integer read with try/catch
+    // - Returns null if parse fails (lab: go back
+    //   to menu instead of crashing)
+    // =========================================
+    private static Integer readIntOrNull() {
+        String line = in.nextLine();
+        try {
+            return Integer.parseInt(line.trim());
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    // ==================================================
+    // Visit a locale by index (arrays drive the content)
+    // - Uses first-visit vs revisit text from arrays
+    // - Each locale has a small interaction to earn Star
+    // ==================================================
+    private static void visitLocale(int index) {
+        System.out.println("\nYou have entered " + LOCALE_NAMES[index]);
+        if (visited[index]) {
+            System.out.println(REVISIT_LINES[index]);
+            // Already visited; nothing more needed
+            return;
+        }
+
+        // First visit path
+        System.out.println(FIRST_VISIT_LINES[index]);
+
+        switch (index) {
+            case 0: // Toad's House 🍄 — simple ask
+                // Read anything; Toad gives a Star
+                in.nextLine();
+                System.out.println("Toad hands you a Star ⭐️ Nice!");
+                starEarned[index] = true;
+                break;
+
+            case 1: // Luigi's Mansion 🏯 — guess ghost count
+                int numberOfGhosts = random.nextInt(10) + 1; // 1..10
+                for (int i = 0; i < numberOfGhosts; i++) System.out.print("👻");
+                System.out.print("\nGuess the number of Ghosts 👻 to collect Star: ");
+                while (true) {
+                    Integer guess = readIntOrNull();
+                    if (guess == null) {
+                        System.out.print("Invalid input. Enter a number: ");
+                        continue; // re-ask here (mini-game loop only)
+                    }
+                    if (guess == numberOfGhosts) {
+                        System.out.println("You guessed correctly!! You get a Star ⭐️");
+                        starEarned[index] = true;
+                        break;
+                    } else {
+                        System.out.print("Guess Again: ");
+                    }
+                }
+                break;
+
+            case 2: // Yoshi's Island 🦖 — simple word choice
+                String fruit = in.nextLine().trim().toLowerCase();
+                if (fruit.equals("banana") || fruit.equals("apple") || fruit.equals("berry")) {
+                    System.out.println("Yoshi is thrilled! You get a Star ⭐️");
+                    starEarned[index] = true;
+                } else {
+                    System.out.println("Yoshi tilts his head… maybe next time! (No Star)");
+                }
+                break;
+
+            case 3: // Princess Peach’s Garden 🌸 — count roses
+                int roses = random.nextInt(5) + 5; // 5..9
+                for (int i = 0; i < roses; i++) System.out.print("🌹");
+                System.out.print("\nHow many roses did you count? ");
+                Integer count = readIntOrNull();
+                if (count != null && count == roses) {
+                    System.out.println("Perfect! Peach awards you a Star ⭐️");
+                    starEarned[index] = true;
+                } else {
+                    System.out.println("So close! Peach smiles anyway. (No Star)");
+                }
+                break;
+
+            case 4: // Toadette’s Workshop 🛠️ — mini math
+                int a = random.nextInt(6) + 2; // 2..7
+                int b = random.nextInt(6) + 2; // 2..7
+                System.out.print("Tighten gear ratio! What is " + a + " × " + b + "? ");
+                Integer prod = readIntOrNull();
+                if (prod != null && prod == a * b) {
+                    System.out.println("Perfect fit! Toadette grants you a Star ⭐️");
+                    starEarned[index] = true;
+                } else {
+                    System.out.println("Hmm, gears slip… try again next time. (No Star)");
+                }
+                break;
+
+            default:
+                // Should never happen
+                break;
+        }
+
+        visited[index] = true;
+    }
+
+    // ==================================
+    // Bowser’s Castle (requires 2 Stars)
+    // ==================================
+    private static void visitBowser() {
+        System.out.println("\nCongratulations you have unlocked Bowser's Castle!! 🏰");
+        System.out.println("Fight Bowser to save Princess Peach 👸🏼");
+        System.out.println("[1] Ground Pound 🧱");
+        System.out.println("[2] Fire Ball ☄️");
+        System.out.println("[3] Star Power 🌟");
+        System.out.print("Choose your move (1-3): ");
+
+        Integer move = readIntOrNull();
+        if (move == null) {
+            System.out.println("Invalid input. Bowser laughs… You Lose ❌");
+            return;
+        }
+
+        if (move == 1) {
+            System.out.println("Ground Pound was blocked by Bowser's shell.");
+            System.out.println("You Lose ❌");
+        } else if (move == 2) {
+            System.out.println("Fire doesn't work on Bowser 🔥");
+            System.out.println("You Lose ❌");
+        } else if (move == 3) {
+            System.out.println("Star power destroys Bowser 💫🐢!!!");
+            System.out.println("You've saved Princess Peach! 👸🏼 You Won 🏆");
+        } else {
+            System.out.println("You hesitate… Bowser strikes! You Lose ❌");
+        }
+    }
+
+    // ==========================================================
+    // Ask to play again; if yes, reset arrays and continue game
+    // ==========================================================
+    private static boolean askPlayAgainOrQuit() {
+        System.out.print("Play Again? (y/n) 🕹️ ");
+        String gameRestart = in.nextLine().trim();
+        if (gameRestart.equalsIgnoreCase("y")) {
+            // reset state
+            for (int i = 0; i < visited.length; i++) {
+                visited[i] = false;
+                starEarned[i] = false;
+            }
+            return true; // keep running
+        } else if (gameRestart.equalsIgnoreCase("n")) {
+            return false; // stop running
+        } else {
+            System.out.println("Invalid input. Returning to menu.");
+            return true; // fall back to running
+        }
     }
 }
+

@@ -68,9 +68,35 @@ public class ShoppingCartApp {
   }
 
   // Method for prompt user for int
+  // Keep asking until user enters valid number
+  // on invalid ; print please enter a valid number and prompt again
   private static int promptUserForInt(String prompt) {
     Scanner console = new java.util.Scanner(System.in);
-    System.out.println(prompt);
-    return Integer.parseInt(console.nextLine());
+    while (true) {
+        System.out.println(prompt);
+        String line = console.nextLine();
+        try {
+            // Try converting input to int
+            return Integer.parseInt(line.trim());
+        }   catch (NumberFormatException ex) {
+            // if fails loop again
+            System.out.println("Please enter a valid number");
+        }
+    }
+
   }
+
+  // Method for prompt user for menu choice
+  // Uses promptUserForInt for numeric input
+  // Validates bounds; if out of range print invalid input
+  private static int promptUserForMenuChoice(String prompt, int max){
+      while (true){
+          int choice = promptUserForInt(prompt);
+          if (choice >= 1 && choice <= max) {
+              return choice;
+          }
+          System.out.println("Please enter a valid menu option.");
+      }
+  }
+
 }

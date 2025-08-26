@@ -1,7 +1,7 @@
 package org.example.shoppingcart;
 
 public class LoopPractice {
-    public static void main(String)[] args) {
+    public static void main(String[] args) {
 
         //        FizzBuzz Challenge (For Loop)
         //● Print numbers from 1 to 100.
@@ -11,7 +11,7 @@ public class LoopPractice {
 
             //● If a number is divisible by 3, print "Fizz".
 
-        }
+
 
     }
 }

@@ -59,6 +59,7 @@ public class Locker {
 
     // Clean print
     // Use override
+    @Override
     public String toString() {
         String displayContents = isOccupied ? contents : "empty";
         return "Locker ID: " + lockerId

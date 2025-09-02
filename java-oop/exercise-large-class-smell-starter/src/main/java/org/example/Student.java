@@ -4,26 +4,18 @@ public class Student {
     private String firstName;
     private String lastName;
     private double GPA;
-    private String homeroomTeacherFirstName;
-    private String homeroomTeacherLastName;
+    private Teacher homeroom; // replaces homeroomTeacherFirstName/LastName
 
-
-    public String getHomeroomTeacherLastName() {
-        return homeroomTeacherLastName;
+    // Homeroom (Teacher)
+    public Teacher getHomeroom() {
+        return homeroom;
     }
 
-    public void setHomeroomTeacherLastName(String homeroomTeacherLastName) {
-        this.homeroomTeacherLastName = homeroomTeacherLastName;
+    public void setHomeroom(Teacher homeroom) {
+        this.homeroom = homeroom;
     }
 
-    public String getHomeroomTeacherFirstName() {
-        return homeroomTeacherFirstName;
-    }
-
-    public void setHomeroomTeacherFirstName(String homeroomTeacherFirstName) {
-        this.homeroomTeacherFirstName = homeroomTeacherFirstName;
-    }
-
+    // GPA
     public double getGPA() {
         return GPA;
     }
@@ -32,14 +24,16 @@ public class Student {
         this.GPA = GPA;
     }
 
+    // Last name
     public String getLastName() {
         return lastName;
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName =lastName;
     }
 
+    // First name
     public String getFirstName() {
         return firstName;
     }
@@ -48,4 +42,8 @@ public class Student {
         this.firstName = firstName;
     }
 
+    // helper for printing
+    public String getFullName() {
+        return getFirstName() + " " + getLastName();
+    }
 }

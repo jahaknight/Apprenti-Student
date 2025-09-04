@@ -3,16 +3,21 @@ import java.time.LocalDateTime;
 public class App {
     public static void main(String[] args) {
         Order[] orders = setupOrders();
+        Logger logger = new Logger();
 
-        System.out.println("Screen Log for starting processing orders " +
-                " : at timestamp: " + LocalDateTime.now());
+
+        logger.timeStampedLog("processing orders");
+//        System.out.println("Screen Log for starting processing orders " +
+//                " : at timestamp: " + LocalDateTime.now ());
 
         for(Order o: orders) {
-            System.out.println("Screen Log for Order: " +
-                    o.getOrderId() +
-                    " : at timestamp: " + LocalDateTime.now());
+            logger.timeStampedLog(" Order: " + o.getOrderId());
+//            System.out.println("Screen Log for Order: " +
+//                    o.getOrderId() +
+//                    " : at timestamp: " + LocalDateTime.now());
             for(Item i: o.getItems()) {
-                System.out.println("Screen Log for Processing Order: " + o.getOrderId() + " Item : " + i.itemName);
+                logger.logToScreen(" processing Orders: " + o.getOrderId() + " Item : " + i.itemName);
+//                System.out.println("Screen Log for Processing Order: " + o.getOrderId() + " Item : " + i.itemName);
             }
         }
 

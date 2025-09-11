@@ -20,7 +20,6 @@ public class App {
 
 
 
-        io.displayMessage("Printer monitor online");
 
 
         io.displayMessage("Halting printer monitors");

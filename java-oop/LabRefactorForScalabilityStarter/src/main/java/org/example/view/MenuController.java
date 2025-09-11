@@ -9,7 +9,6 @@ import java.util.List;
 public class MenuController {
     private ConsoleIO io;
     private PrinterManager manager;
-
     public MenuController(ConsoleIO io, PrinterManager manager) {
         this.io = ConsoleIO.getInstance();
         this.manager = new PrinterManager();

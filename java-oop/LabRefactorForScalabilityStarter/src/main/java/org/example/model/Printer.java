@@ -5,7 +5,8 @@ public class Printer {
         READY,
         WARMING_UP,
         PRINTING,
-        COMPLETE
+        COMPLETE,
+        HALT
     }
 
     private String name;

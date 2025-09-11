@@ -64,4 +64,8 @@ public class PrinterMonitor extends TimerTask {
     private void handleComplete() {
         cycle = 0;
     }
+
+    public void haltMonitor() {
+        printer.setStatus(Printer.PrinterStatus.HALT);
+    }
 }

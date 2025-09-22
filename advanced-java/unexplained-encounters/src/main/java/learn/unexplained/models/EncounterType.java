@@ -5,5 +5,10 @@ public enum EncounterType {
     CREATURE,
     VOICE,
     SOUND,
-    VISION
+    VISION;
+
+    public static EncounterType fromString (String s) {
+        if (s == null) return null;
+        return EncounterType.valueOf(s.trim().toUpperCase());
+    }
 }

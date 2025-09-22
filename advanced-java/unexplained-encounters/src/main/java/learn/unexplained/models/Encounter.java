@@ -10,21 +10,19 @@ public class Encounter {
     private String description;
     private int occurrences;
 
-    public Encounter() {
-    }
+    public Encounter() { }
 
-    public Encounter(int encounterId, EncounterType type, String when, String shortDescription, int occurrences) {
+    public Encounter(int encounterId, EncounterType type, String when, String description, int occurrences) {
         this.encounterId = encounterId;
         this.type = type;
         this.when = when;
-        this.description = shortDescription;
+        this.description = description;
         this.occurrences = occurrences;
     }
 
     public int getEncounterId() {
         return encounterId;
     }
-
     public void setEncounterId(int encounterId) {
         this.encounterId = encounterId;
     }
@@ -32,7 +30,6 @@ public class Encounter {
     public EncounterType getType() {
         return type;
     }
-
     public void setType(EncounterType type) {
         this.type = type;
     }
@@ -40,7 +37,6 @@ public class Encounter {
     public String getWhen() {
         return when;
     }
-
     public void setWhen(String when) {
         this.when = when;
     }
@@ -48,7 +44,6 @@ public class Encounter {
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -56,7 +51,6 @@ public class Encounter {
     public int getOccurrences() {
         return occurrences;
     }
-
     public void setOccurrences(int occurrences) {
         this.occurrences = occurrences;
     }
@@ -64,13 +58,13 @@ public class Encounter {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Encounter encounter = (Encounter) o;
-        return encounterId == encounter.encounterId &&
-                occurrences == encounter.occurrences &&
-                type == encounter.type &&
-                Objects.equals(when, encounter.when) &&
-                Objects.equals(description, encounter.description);
+        if (!(o instanceof Encounter)) return false;
+        Encounter that = (Encounter) o;
+        return encounterId == that.encounterId
+                && occurrences == that.occurrences
+                && type == that.type
+                && Objects.equals(when, that.when)
+                && Objects.equals(description, that.description);
     }
 
     @Override

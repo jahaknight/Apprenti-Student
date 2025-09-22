@@ -63,11 +63,15 @@ class EncounterServiceTest {
     @Test
     void shouldAdd() throws DataAccessException {
         Encounter encounter = new Encounter(0, EncounterType.CREATURE, "2/2/2019", "test description", 1);
-        EncounterResult expected = new EncounterResult();
-        expected.setPayload(encounter);
-
         EncounterResult actual = service.add(encounter);
-        assertEquals(expected, actual);
+        assertTrue(actual.isSuccess(), "result should be a success");
+        assertNotNull(actual.getPayload(), "payload should be present");
+
+        Encounter saved = actual.getPayload();
+        assertEquals(EncounterType.CREATURE, saved.getType());
+        assertEquals("2/2/2019", saved.getWhen());
+        assertEquals("test description", saved.getDescription());
+        assertEquals(1, saved.getOccurrences());
     }
 
     private EncounterResult makeResult(String message) {

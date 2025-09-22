@@ -4,6 +4,7 @@ import learn.unexplained.data.DataAccessException;
 import learn.unexplained.domain.EncounterResult;
 import learn.unexplained.domain.EncounterService;
 import learn.unexplained.models.Encounter;
+import learn.unexplained.models.EncounterType;
 
 import java.util.List;
 
@@ -23,35 +24,71 @@ public class Controller {
         try {
             runMenuLoop();
         } catch (DataAccessException ex) {
-            view.printHeader("CRITICAL ERROR:" + ex.getMessage());
+            view.printHeader("CRITICAL ERROR: " + ex.getMessage());
         }
 
         view.printHeader("Goodbye");
     }
 
     private void runMenuLoop() throws DataAccessException {
-        MenuOption option;
-        do {
-            option = view.displayMenuGetOption();
+        while (true) {
+            MenuOption option = view.displayMenuGetOption();
             switch (option) {
-                case DISPLAY_ALL:
-                    displayAllEncounters();
+                case DISPLAY_BY_TYPE:
+                    displayByType();
                     break;
                 case ADD:
                     addEncounter();
                     break;
+                case UPDATE:
+                    updateEncounter();
+                    break;
+                case DELETE:
+                    deleteEncounter();
+                    break;
+                case EXIT:
+                default:
+                    return;
+                }
             }
-        } while (option != MenuOption.EXIT);
+        }
+
+    // Display By Type
+    private void displayByType() throws DataAccessException {
+        EncounterType type = view.readType();
+        List<Encounter> list = service.findByType(type);
+        view.showEncounters(list);
     }
 
-    private void displayAllEncounters() throws DataAccessException {
-        List<Encounter> encounters = service.findAll();
-        view.printAllEncounters(encounters);
-    }
-
+    // Add
     private void addEncounter() throws DataAccessException {
-        Encounter encounter = view.makeEncounter();
-        EncounterResult result = service.add(encounter);
-        view.printResult(result);
+        Encounter toAdd = view.makeEncounter();
+        EncounterResult result = service.add(toAdd);
+        view.printAddResult(result);
+    }
+
+    // Update
+    private void updateEncounter() throws DataAccessException {
+        EncounterType type = view.readType();
+        List<Encounter> candidates = service.findByType(type);
+        if (candidates.isEmpty()) {
+            view.say("No encounters of that type.");
+            return;
+        }
+
+        Encounter selected = view.chooseFrom(candidates);
+        if (selected == null) return;
+
+        Encounter edited = view.editEncounter(selected);
+        EncounterResult result = service.update(edited);
+        view.printUpdateResult(result);
+    }
+
+    // Delete
+    private void deleteEncounter() throws DataAccessException {
+        int id = view.readEncounterId();
+        boolean deleted = service.deleteById(id);
+        view.say(deleted ? "Deleted." : "Not found.");
     }
 }
+

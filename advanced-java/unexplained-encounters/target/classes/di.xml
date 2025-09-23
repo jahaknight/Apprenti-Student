@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+               http://www.springframework.org/schema/beans
+               https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Data -->
+    <!-- EncounterFileRepository -->
+    <bean id="encounterRepository"
+          class="learn.unexplained.data.EncounterFileRepository">
+        <constructor-arg value="data/encounters-seed.csv"/>
+    </bean>
+
+    <!-- Domain -->
+    <!-- EncounterService(EncounterRepository repo) -->
+    <bean id="encounterService"
+          class="learn.unexplained.domain.EncounterService">
+        <constructor-arg ref="encounterRepository"/>
+    </bean>
+
+    <!-- UI Layer -->
+    <bean id="view" class="learn.unexplained.ui.View"/>
+
+    <!-- Controller (EncounterService service, View view) -->
+    <bean id="controller" class="learn.unexplained.ui.Controller">
+        <constructor-arg ref="encounterService"/>
+        <constructor-arg ref="view"/>
+    </bean>
+</beans>

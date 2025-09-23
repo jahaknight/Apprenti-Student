@@ -1,19 +1,17 @@
 package learn.unexplained;
 
-import learn.unexplained.data.EncounterFileRepository;
-import learn.unexplained.data.EncounterRepository;
-import learn.unexplained.domain.EncounterService;
 import learn.unexplained.ui.Controller;
-import learn.unexplained.ui.View;
-
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class App {
-
     public static void main(String[] args) {
-        EncounterFileRepository repository = new EncounterFileRepository("./data/encounters.csv");
-        EncounterService service = new EncounterService(repository);
-        View view = new View();
-        Controller controller = new Controller(service, view);
+        // Load beans from src/main/resources/di.xml
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("di.xml");
+
+        // Gets controller bean
+        Controller controller = ctx.getBean("controller", Controller.class);
         controller.run();
     }
 }
+

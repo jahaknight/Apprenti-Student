@@ -1,8 +1,9 @@
 import java.math.BigDecimal;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
 
 public class Exercise05 {
-
     // THE GODMOTHER
     // ========================
     // Complete the numbered tasks below.
@@ -12,7 +13,17 @@ public class Exercise05 {
     // Payments start on the first Friday of the year.
     // Given a date, calculate payments expected from that date until the end of the year.
     BigDecimal calculateGiftsTilEndOfYear(LocalDate date) {
-        return null;
+        int year = date.getYear();
+        LocalDate firstFriday = LocalDate.of(year, 1, 1)
+                .with(TemporalAdjusters.firstInMonth(DayOfWeek.FRIDAY));
+
+        BigDecimal total = BigDecimal.ZERO;
+        for (LocalDate pay = firstFriday; pay.getYear() == year; pay = pay.plusWeeks(2)) {
+            if (!pay.isBefore(date)) {
+                total = total.add(BigDecimal.TEN);
+            }
+        }
+        return total;
     }
 
     // 2. Your Godmother is getting quirky. She adjusted her payment schedule.
@@ -24,7 +35,16 @@ public class Exercise05 {
     // July 12 == $12
     // Given a date, calculate payments expected from that date until the end of the year.
     BigDecimal calculateQuirkyGiftsTilEndOfYear(LocalDate date) {
-        return null;
-    }
+        int year = date.getYear();
+        LocalDate firstFriday = LocalDate.of(year, 1, 1)
+                .with(TemporalAdjusters.firstInMonth(DayOfWeek.FRIDAY));
 
+        BigDecimal total = BigDecimal.ZERO;
+        for (LocalDate pay = firstFriday; pay.getYear() == year; pay = pay.plusWeeks(2)) {
+            if (!pay.isBefore(date)) {
+                total = total.add(BigDecimal.valueOf(pay.getDayOfMonth()));
+            }
+        }
+        return total;
+    }
 }

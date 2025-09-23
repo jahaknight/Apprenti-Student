@@ -1,7 +1,7 @@
 package learn;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,6 +13,11 @@ class NonOverlappingMicroLeaseScheduleTest {
     // Arrange step.
 
     NonOverlappingMicroLeaseSchedule schedule = new NonOverlappingMicroLeaseSchedule();
+
+    @BeforeEach
+    void setup() {
+        schedule = new NonOverlappingMicroLeaseSchedule();
+    }
 
     @Test
     void shouldNotAllowNulls() {
@@ -115,5 +120,24 @@ class NonOverlappingMicroLeaseScheduleTest {
             start = end;
             end = start.plusDays(1);
         }
+    }
+
+    // set up multiple valid leases and add one that overlaps the middle
+    @Test
+    void shouldNotAddWhenOverlappingMiddleOfSeveral() {
+        assertTrue(schedule.add(new MicroLease(
+                LocalDateTime.of(2021, 1, 1, 0, 0),
+                LocalDateTime.of(2021, 1, 10, 0, 0 ))));
+        assertTrue(schedule.add(new MicroLease(
+                LocalDateTime.of(2021, 1, 10, 0, 0),
+                LocalDateTime.of(2021, 1, 20, 0, 0))));
+        assertTrue(schedule.add(new MicroLease(
+                LocalDateTime.of(2021, 1, 20, 0, 0),
+                LocalDateTime.of(2021, 1, 30, 0, 0))));
+
+        // overlaps should this should reject
+        assertFalse(schedule.add(new MicroLease(
+                LocalDateTime.of(2021, 1, 15, 0, 0 ),
+                LocalDateTime.of(2021, 1, 18, 0, 0))));
     }
 }

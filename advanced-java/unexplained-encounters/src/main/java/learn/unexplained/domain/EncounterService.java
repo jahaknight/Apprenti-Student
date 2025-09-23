@@ -4,10 +4,12 @@ import learn.unexplained.data.DataAccessException;
 import learn.unexplained.data.EncounterRepository;
 import learn.unexplained.models.Encounter;
 import learn.unexplained.models.EncounterType;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
 
+@Service
 public class EncounterService {
 
     private final EncounterRepository repository;
@@ -55,7 +57,7 @@ public class EncounterService {
             return result;
         }
 
-        // prevents duplicates (ignore current record with same ID
+        // prevents duplicates (ignore current record with same ID)
         for (Encounter e : repository.findAll()) {
             if (e.getEncounterId() != encounter.getEncounterId()
                     && Objects.equals(encounter.getWhen(), e.getWhen())
@@ -68,7 +70,7 @@ public class EncounterService {
 
         boolean updated = repository.update(encounter);
         if (!updated) {
-            result.addErrorMessage("encounter id " + encounter.getEncounterId() + "not found");
+            result.addErrorMessage("encounter id " + encounter.getEncounterId() + " not found");
             return result;
         }
 

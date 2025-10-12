@@ -38,7 +38,7 @@ CALL GetActiveCustomers();
 DROP PROCEDURE IF EXISTS GetActiveCustomers;
 DROP PROCEDURE IF EXISTS GetCustomerDetails;
 DELIMITER //
-CREATE PROCEDURE GetCustomerDetails(IN CustomerIdIn INT)
+CREATE PROCEDURE  GetCustomerDetails(IN CustomerIdIn INT)
 BEGIN
 	SELECT * FROM Customers
     WHERE CustomerId = CustomerIdIn;
@@ -60,7 +60,7 @@ CREATE PROCEDURE GetCustomerInfo(
 BEGIN
 	SELECT *
     FROM Customers
-    WHERE CustomerId = p_CustomerId
+    WHERE CustomerId =     p_CustomerId
 		AND CustomerName = p_CustomerName;
 	END //
     DELIMITER ;
@@ -76,9 +76,9 @@ DELIMITER //
 CREATE PROCEDURE GetCustomerDetails(IN p_CustomerId INT)
 BEGIN
 	SELECT *
-    FROM Customers
+    FROM  Customers
     WHERE CustomerId = p_CustomerId
-		AND Status = 'Active';
+		AND Status =   'Active';
 END //
 DELIMITER ;
 
@@ -117,12 +117,4 @@ DELIMITER ;
 -- test
 CALL ToggleCustomerStatus(1);
 SELECT * FROM Customers WHERE CustomerId = 1;
-
-
-
-
-
-
-
-
 

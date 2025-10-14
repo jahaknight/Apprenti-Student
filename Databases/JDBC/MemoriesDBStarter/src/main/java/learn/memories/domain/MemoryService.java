@@ -3,6 +3,7 @@ package learn.memories.domain;
 import learn.memories.data.DataAccessException;
 import learn.memories.data.MemoryRepository;
 import learn.memories.models.Memory;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -15,6 +16,10 @@ public class MemoryService {
 
     public List<Memory> findShareableMemories() throws DataAccessException {
         return repository.findShareable(true);
+    }
+
+    public List<Memory> findAllMemories() throws DataAccessException{
+        return repository.findAll();
     }
 
     public List<Memory> findPrivateMemories() throws DataAccessException {

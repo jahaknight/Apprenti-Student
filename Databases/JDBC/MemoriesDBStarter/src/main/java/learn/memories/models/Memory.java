@@ -46,4 +46,14 @@ public class Memory {
     public void setShareable(boolean shareable) {
         this.shareable = shareable;
     }
+
+    @Override
+    public String toString() {
+        return "Memory{" +
+                "id=" + id +
+                ", from='" + from + '\'' +
+                ", content='" + content + '\'' +
+                ", shareable=" + shareable +
+                '}';
+    }
 }

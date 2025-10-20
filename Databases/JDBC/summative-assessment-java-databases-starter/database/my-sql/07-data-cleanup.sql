@@ -1,3 +1,8 @@
+USE SimpleBistro;
+SET SQL_SAFE_UPDATES = 0;
+
+TRUNCATE TABLE Payment;
+
 -- fix random term date before hire date
 Update `Server`
 	SET HireDate = '2020-01-01'
@@ -59,4 +64,5 @@ UPDATE `Order` SET
 -- Handle final order total
 UPDATE `Order` SET 
 	Total = SubTotal + Tax + Tip;
+
 

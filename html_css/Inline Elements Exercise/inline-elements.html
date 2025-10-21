@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title> Inline Elements Exercise </title>
+        <style>
+            body { font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; margin:0; color:#222; background:#fff;}
+            header, footer { background:#f5f5f5; padding: 16px 24px; }
+            nav a { margin: right 16px; text-decoration:none; color:#0066cc; }
+            nav a:hover { text-decoration:underline; }
+            main { padding: 24px; }
+            section {margin: bottom 32px; }
+            footer { text-align:center; font: size 0.9em; color:#555; }
+            span.highlight { color:#0066cc; font-weight: 600; }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>Inline Elements Demo</h1>
+            <nav>
+                <a href="intro">Introduction</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+                <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Inline_elements" target="_blank">Learn More</a>
+            </nav>
+        </header>
+
+        <main>
+            <section id="intro">
+                <h2>Introduction</h2>
+                <p>
+                    Welcome to this short exercise on <strong>inline elements</strong> in HTML. 
+                    Inline elements allow you to <em>style and emphasize</em> small pieces of text 
+                    <span class="highlight">without breaking the flow</span> of a paragraph.<br />
+                    They are essential for improving readability and accessibility.
+                  </p>
+            </section>
+
+            <section id="about">
+                <p>
+                    Inline elements, such as <code>&lt;a&gt;</code>, <code>&lt;span&gt;</code>, 
+                    <code>&lt;em&gt;</code>, and <code>&lt;strong&gt;</code>, are used within block-level 
+                    elements to modify content meaning or appearance. For instance, the word 
+                    <strong>important</strong> below uses semantic emphasis:
+                </p>
+
+                <p>
+                    It's <em>important</em> to use semantic tags like 
+                    <strong>&lt;em&gt;</strong> and <strong>&lt;strong&gt;</strong> instead of 
+                    non-semantic <code>&lt;b&gt;</code> or <code>&lt;i&gt;</code>, because they 
+                    improve accessibility for screen readers.
+                </p>
+            </section>
+
+            <section id="contact">
+                <h2>Contact</h2>
+                <p>
+                    You can reach me via <a href="mailto:jaha.knight@example.com">email</a> 
+                    for questions about this exercise or other design work.<br />
+                    I'd love to hear your thoughts on how inline elements have improved your 
+                    workflow!
+                  </p>
+            </section>
+        </main>
+        <footer>
+            &copy; 2025 Jaha Knight - Inline Elements Exercise
+        </footer>
+    </body>
+</html>

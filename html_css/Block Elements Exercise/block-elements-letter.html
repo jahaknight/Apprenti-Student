@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Business Letter - Knight Productions</title>
+        <style>
+            :root{ --fg:#1b1b1b; --muted:#555; --accent:#0b5fff;}
+            html,body {margin:0; padding:0; font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; color:var(--fg); background:#fff;}
+            main { max-width:720px; margin: 48px auto; padding: 0 20px; }
+            header, section, footer { margin: block 24px;}
+            address { font-style:normal; color:var(--muted);}
+            h1 {font-size:1.375rem; margin:0 0 8px; }
+            time { color:var(--muted); }
+            ul { margin: 12px 0 0 1.25rem; }
+            li { margin: 6px 0; }
+            .signature {margin: top 28px; }
+            .hr { height: 1px; background:#eee; border:0; margin:24px 0; }
+        </style>
+    </head>
+    <body>
+        <main>
+            <!-- Sender block -->
+            <header>
+                <h1>Business Letter</h1>
+                <address>
+                    Jaha Knight<br/>
+                    086 Broad Street<br/>
+                    Philadelphia, PA 19122<br/>
+                    <a href="mailto:heshimadesigns@example.com">heshimadesigns@example.com</a> • (215) 555-0199
+                </address>
+                <time datetime="2025-10-20">October 20, 2025</time>
+            </header>
+
+            <hr class="hr" />
+
+             <!-- Recipient block -->
+             <section aria-labelledby="to">
+                 <h2 id="to" class="sr-only">Recipient</h2>
+                 <address>
+                     Kiara Northern<br/>
+                     Partnership Manager<br/>
+                     Savoy Fragrances, LLC<br/>
+                     400 Lakeshore Drive, Suite 900<br/>
+                     Chicago, IL 60601
+                 </address>
+             </section>
+
+              <!-- Greeting block -->
+              <section>
+                  <p>Dear Ms. Northern</p>
+              </section>
+
+              <!-- Body paragraphs (block elements: section + p + ul) -->
+              <section aria-labelledby="purpose">
+                  <h2 id="purpose" class="sr-only">Purpose</h2>
+                  <p>
+                    I am writing to inquire about a potential collaboration between Heshima Designs and Savoy
+                    Fragrances for a holiday landing page and subscription flow. We recently launched a similar campaign
+                    that lifted conversions by 18% and I believe a tailored approach could drive meaningful results for
+                    your Q4 goals.
+                  </p>
+
+                  <p>
+                    In consideration of your current product lineup and timeline, I'd like to propose a two-week sprint
+                    to deliver a responsive hero, PDP enhancements, and an optimized checkout step for gift sets.
+                    If helpful, I'm happy to share wireframes and a brief technical outline.
+                  </p>
+              </section>
+
+              <!-- Action Items -->
+              <section aria-labelledby="actions">
+                  <h2 id="actions">Action Items</h2>
+                  <ul>
+                      <li>Share brand assets (logo, color tokens, type ramp)</li>
+                      <li>Confirm key holiday SKUs and bundle pricing</li>
+                      <li>30-minute kickoff to align on analytics and success metrics</li>
+                  </ul>
+              </section>
+
+              <!--Closing + signature -->
+              <section>
+                <p>
+                    Thank you for your time and consideration. Please feel free to contact me if you need any additional
+                    information. I'm available this week to discuss next steps at your convenience.
+                </p>
+
+                <p class="signature">
+                    Sincerely,<br />
+                    Jaha Knight<br />
+                    Designer / Front-End Apprentice<br />
+                    Heshima Designs
+                  </p>
+              </section>
+
+              <footer>
+                  <address>jahaknight1@gmail.com • (215) 555-0199 </address>
+              </footer>
+        </main>
+    </body>
+</html>

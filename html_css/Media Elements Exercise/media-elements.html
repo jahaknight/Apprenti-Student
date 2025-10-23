@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Space Jam Demo</title>
+
+  <style>
+    :root {
+      --bg1: #0b0b0f;         /* deep space */
+      --bg2: #10152a;         /* nebula blue */
+      --neon: #00ff85;        /* slime/neon */
+      --neon2: #66e0ff;       /* teal glow */
+      --fg: #ffffff;
+      --muted: #a7b0c0;
+      --radius: 14px;
+    }
+
+    /* Space gradient + subtle stars */
+    body{
+      margin:0;
+      min-height:100svh;
+      color:var(--fg);
+      font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(1200px 800px at 10% -10%, rgba(102,224,255,.20), transparent 50%),
+        radial-gradient(1200px 800px at 110% 20%, rgba(0,255,133,.18), transparent 50%),
+        linear-gradient(180deg, var(--bg2), var(--bg1));
+    }
+    /* starfield */
+    body::before{
+      content:"";
+      position:fixed; inset:0; pointer-events:none; opacity:.5;
+      background:
+        radial-gradient(1px 1px at 10% 20%, #fff 99%, transparent 100%),
+        radial-gradient(1px 1px at 30% 80%, #fff 99%, transparent 100%),
+        radial-gradient(1px 1px at 70% 30%, #fff 99%, transparent 100%),
+        radial-gradient(1px 1px at 90% 60%, #fff 99%, transparent 100%),
+        radial-gradient(1px 1px at 50% 50%, #fff 99%, transparent 100%);
+      background-size: 800px 600px, 900px 700px, 1000px 800px, 1100px 900px, 1200px 1000px;
+      mix-blend-mode: screen;
+    }
+
+    /* content container */
+    main { 
+      max-width: 960px; 
+      margin: 2.5rem auto 3.5rem; 
+      padding: 0 1rem; 
+      text-align: center; 
+    }
+
+    h1, h2{
+      margin:0 0 1rem;
+      font-weight:800;
+      letter-spacing:.5px;
+      color: var(--neon);
+      text-shadow: 0 0 12px rgba(0,255,133,.6), 0 0 24px rgba(0,255,133,.35);
+      text-align: center;
+    }
+
+    /* Card-ish media block */
+    figure{
+      width: min(100%, 960px);
+      margin: 2rem auto;
+      padding: 16px;
+      background: rgba(16,21,42,.45);
+      border: 1px solid rgba(102,224,255,.2);
+      border-radius: var(--radius);
+      box-shadow:
+        0 0 0 2px rgba(0,0,0,.2) inset,
+        0 8px 30px rgba(0,0,0,.35);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+    figure:hover{
+      transform: translateY(-2px);
+      border-color: rgba(0,255,133,.45);
+      box-shadow:
+        0 0 0 2px rgba(0,255,133,.25) inset,
+        0 0 24px rgba(0,255,133,.35),
+        0 10px 40px rgba(0,0,0,.45);
+    }
+
+    /* Poster image  */
+    img.poster{
+      display:block;
+      max-width: 360px;
+      width:100%;
+      height:auto;
+      margin: 0 auto;
+      border-radius: calc(var(--radius) - 6px);
+      border: 2px solid rgba(102,224,255,.25);
+      box-shadow: 0 0 24px rgba(0,255,133,.25);
+      background:#111;
+    }
+
+    /* Video & YouTube  */
+    figure > video,
+    figure > iframe{
+      display:block;
+      width:100%;
+      max-width:100%;
+      aspect-ratio: 16 / 9;   
+      height:auto;
+      margin: 0 auto;
+      border-radius: calc(var(--radius) - 6px);
+      border: 2px solid rgba(102,224,255,.25);
+      box-shadow: 0 0 24px rgba(0,255,133,.25);
+      background:#111;
+    }
+
+    /* Audio */
+    figure > audio{
+      display:block;
+      width:min(100%, 720px);
+      margin: .75rem auto 0;
+    }
+
+    figcaption{
+      color: var(--muted);
+      font-size: .95rem;
+      margin-top: .6rem;
+    }
+
+    /* a11y focus */
+    a:focus, button:focus, video:focus, audio:focus, iframe:focus {
+      outline: 3px solid var(--neon2);
+      outline-offset: 3px;
+    }
+
+    footer{
+      text-align:center;
+      color:#888;
+      margin-top: 2rem;
+      padding: 0 1rem 1.5rem;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>Welcome to Space Jam 🏀✨</h1>
+
+    <!-- Poster -->
+    <figure>
+      <img
+        class="poster"
+        src="images/Space%20Jam%20Poster.jpg"
+        alt="Official Space Jam movie poster"
+        width="300" height="450">
+      <figcaption>Classic Space Jam poster — get ready to jam.</figcaption>
+    </figure>
+
+    <!-- Video -->
+    <h2>Basketball Clip</h2>
+    <figure>
+      <video controls preload="metadata" poster="images/Space%20Jam%20Poster.jpg">
+        <source src="media/Shooting%20basketball%20in%20hoop%20.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+      <figcaption>Local clip: shooting hoops.</figcaption>
+    </figure>
+
+    <!-- Audio -->
+    <h2>Basketball Themed Track</h2>
+    <figure>
+      <audio controls preload="metadata">
+        <source src="media/theyre-playing-basketball-made-with-Voicemod.mp3" type="audio/mpeg">
+        Your browser does not support HTML5 audio.
+      </audio>
+      <figcaption>Theme track — local demo for coursework.</figcaption>
+    </figure>
+
+    <!-- YouTube -->
+    <h2>Official Space Jam Trailer (YouTube)</h2>
+    <figure>
+      <iframe
+        src="https://www.youtube.com/embed/oKNy-MWjkcU"
+        title="Space Jam Official Trailer 1996"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
+      <figcaption>Official trailer embed.</figcaption>
+    </figure>
+
+    <footer>© 2025 Jaha Knight — Media Elements Exercise</footer>
+  </main>
+</body>
+</html>

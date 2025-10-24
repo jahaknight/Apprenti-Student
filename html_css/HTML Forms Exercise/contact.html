@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contact Form</title>
+    <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+        <main class="wrap">
+            <header>
+                <h1 class="title">Contact Us</h1>
+                <p class="subtitle">We'll get back to you ASAP</p>
+            </header>
+
+            <section class="card">
+                <div class="card-head">Send a Message</div>
+
+                <form action="/submit-form" method="post" novalidate>
+                    <!--Contact Information-->
+                    <fieldset>
+                        <legend>Contact Inforamtion--</legend>
+                        <div class="group row">
+                        <div>
+                        <label class="req" for="name">Name</label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Enter your name"
+                            autocomplete="name"
+                            required
+                            >
+                        </div>
+
+                        <div>
+                            <label class="req" for="email">Email</label>
+                            <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email"
+                            autocomplete="email"
+                            required
+                            >
+                        </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Message Details -->
+                     <fieldset>
+                        <legend>Your Message</legend>
+                        <div class="group">
+                            <div class="row">
+                        <div>
+                            <label for="reason">Reason for Contact</label>
+                            <select id="reason" name="reason">
+                                <option value="support">Support</option>
+                                <option value="feedback">Feedback</option>
+                                <option value="business">Business Inquiry</option>
+                            </select>
+                            <p class="help">Helps us route your request to the right teammate</p>
+                        </div> 
+                        
+                        <div>
+                            <label for="topic">Topic</label>
+                            <input
+                                list="topics"
+                                id="topic"
+                                name="topic"
+                                placeholder="Choose or type a topic"
+                                >
+                                <datalist id="topics">
+                                    <option value="Website Issue"></option>
+                                    <option value="Billing Question"></option>
+                                    <option value="Feature Request"></option>
+                                </datalist>
+                                <p class="help">Pick a suggestion or enter your own.</p>
+                        </div>
+                        </div>
+
+                        <div>
+                            <label class="req" for="message">Message</label>
+                            <textarea
+                                id="message"
+                                name="message"
+                                placeholder="Type your message here..."
+                                required
+                                ></textarea>
+                        </div>
+                        </div>
+                     </fieldset>
+
+                     <div class="actions">
+                        <button type="submit">Send Message</button>
+                     </div>
+                </form>
+            </section>
+        </main>
+    </body>
+</html>

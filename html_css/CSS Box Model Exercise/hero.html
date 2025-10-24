@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Jaha Knight - Hero (CSS Box Model)</title>
+
+        <!--Roboto Mono-->
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+
+        <!--Personal Logo (favicon)-->
+        <link rel="icon" type="image/png" href="images/JK_Logo-removebg-preview.png">
+
+        <link rel="stylesheet" href="hero.css">
+    </head>
+
+    <body>
+        <!-- HERO: portfolio-ready section (demonstrates block/inline/inline-block + flex)-->
+        <section class="hero container">
+            <div class="intro-box">
+                <h1 class="name">Jaha Knight</h1>
+                <p class="tagline">Creative Technologist & Visual Thinker</p>
+                <p class="bio">
+                    I build quiet, minimal interfaces where design and code meet. Clarity over noise. Intention over hype.
+                </p>
+
+                <!-- inline element converted to inline-block via CSS -->
+                <span class="chip">Currently exploring UI + Front-End Development</span>
+            </div>
+
+            <!-- Block-level card with padding, border, margin, fixed width/height via CSS -->
+            <figure class="profile-card">
+                <img 
+                src="images/Jaha.jpeg"
+                 alt="Portrait of Jaha Knight at a museum exhibit"
+                 class="profile-img"
+                 width="640" height="854"
+                 loading="eager"
+                 >
+                 <figcaption class="visually-hidden">Portfolio Portrait</figcaption>
+            </figure>
+        </section>
+
+
+         <!-- ============================
+              TASK 2/3: Box Model + box-sizing
+              (same declared size; different rendered size)
+              ============================== -->
+        <section class="container demo-sizing">
+            <h2 class="section-title">Box Sizing Comparison</h2>
+            <div class="boxes">
+
+                <!-- content-box adds padding+border to width -->
+                <div class="demo-box content-box">content-box</div>
+
+                <!-- border-box keeps total width at the declared size -->
+                <div class="demo-box border-box">border box</div>
+            </div>
+        </section>
+
+        <!-- ============================
+             TASK 4: Nested boxes + margin collapsing
+             ============================== -->
+        <section class="container demo-collapse">
+            <h2 class="section-title">Nested Boxes & Margin Collapsing</h2>
+
+            <!-- Example where child top margin collapses with parent (no padding/border) -->
+            <div class="nest parent collapse-yes">
+                <div class="child">Child margin collapses into parent</div>
+            </div>
+
+            <!-- Add padding or border to stop collapse -->
+            <div class="nest parent collapse-no">
+                <div class="child">No collapse (parent has padding)</div>
+            </div>
+        </section>
+    </body>
+</html>

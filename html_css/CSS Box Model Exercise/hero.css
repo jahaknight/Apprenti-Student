@@ -1,0 +1,164 @@
+/* Jaha Portfolio vibe */
+:root{
+  --bg: #f5f3ee;       /* warm soft off-white */
+  --text: #1a1a1a;     /* deep charcoal */
+  --navy: #0f2233;     /* ink navy */
+  --sand: #e6dfd3;     /* neutral beige */
+  --edge: #d4c7b9;     /* subtle border beige */
+  --accent: #bfa98e;   /* taupe-gold accent */
+  --mono: 'Roboto Mono', monospace;
+}
+
+*{ box-sizing: border-box; }     
+
+html, body{ height:100%; }
+body{
+  margin:0;
+  font-family: var(--mono);
+  color:var(--text);
+  background: var(--bg);
+}
+
+/* generic wrapper */
+.container{
+  max-width: 1000px;
+  margin-inline: auto;
+  padding: 40px 24px;
+}
+
+/* ===============================
+   HERO LAYOUT (Task 1 + box model)
+   - Uses flex container
+   - Shows block vs inline/inline-block
+   - Demonstrates padding + border + margin
+   =============================== */
+.hero{
+  display:flex;                  /* flex container for layout */
+  gap:60px;
+  align-items:flex-start;
+  justify-content:space-between;
+}
+
+.intro-box{                      /* block-level element */
+  background:#fff;
+  border: 1px solid var(--edge); /* border demo */
+  border-radius: 14px;
+  padding: 22px 24px;            /* padding demo */
+  max-width: 520px;
+  box-shadow: 0 10px 28px rgba(15,34,51,.06);
+}
+
+.name{
+  margin:0 0 6px;
+  font-weight:600;
+  font-size: clamp(1.8rem, 1.3rem + 2vw, 2.4rem);
+  letter-spacing:.2px;
+}
+.tagline{ margin:0 0 14px; color: var(--navy); }
+.bio{ margin:0 0 10px; line-height:1.55; max-width: 48ch; }
+
+/* Inline → inline-block transformation (Task 1) */
+.chip{
+  display:inline-block;          /* was inline conceptually; inline-block gives box model control */
+  background: var(--sand);
+  padding: 4px 10px;             /* padding applies because it's inline-block */
+  border-radius: 6px;
+}
+
+/* Photo card (block element with explicit width/height for Task 2) */
+.profile-card{
+  margin:0;                      /* margin reset */
+  width: 260px;                  /* fixed width (Task 2) */
+  height: auto;
+  border-radius: 16px;
+  border: 1px solid var(--edge);
+  overflow:hidden;
+  background:#fff;
+  box-shadow: 0 14px 32px rgba(15,34,51,.08);
+}
+.profile-img{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  filter: saturate(.98) contrast(.98);
+}
+
+/* accessibility helper */
+.visually-hidden{
+  position:absolute; width:1px; height:1px; margin:-1px; padding:0;
+  overflow:hidden; clip:rect(0 0 0 0); border:0;
+}
+
+/* Responsive */
+@media (max-width: 860px){
+  .hero{ flex-direction:column; gap:24px; }
+  .profile-card{ width: 220px; }
+}
+
+/* ===============================
+   TASK 2 & 3: Box sizing demo
+   =============================== */
+.section-title{
+  margin: 0 0 16px;
+  font-size: 1rem;
+  color: var(--navy);
+  opacity: .9;
+}
+.boxes{
+  display:flex;
+  gap:16px;
+  flex-wrap: wrap;
+}
+.demo-box{
+  /* Declared size: */
+  width: 200px;
+  height: 120px;
+
+  /* Box model props to reason about: */
+  padding: 20px;                /* adds 40px horizontally in content-box */
+  border: 5px solid var(--edge);/* adds 10px horizontally in content-box */
+  margin: 10px;                 /* sits outside the element */
+
+  background:#fff;
+  border-radius:12px;
+  display:grid; place-items:center;
+  color: var(--navy);
+  box-shadow: 0 6px 18px rgba(15,34,51,.05);
+  font-size:.95rem;
+}
+
+/* content-box (default) */
+.content-box{ box-sizing: content-box; }
+
+/* border-box */
+.border-box{
+  box-sizing: border-box;
+  background: var(--sand);
+}
+
+/* ===============================
+   TASK 4: Nested boxes & margin collapsing
+   =============================== */
+.nest{
+  background:#fff;
+  border: 1px solid var(--edge);
+  border-radius: 12px;
+  margin: 16px 0;
+  box-shadow: 0 6px 18px rgba(15,34,51,.05);
+}
+.parent{ min-height: 90px; }
+
+/* child has a top margin; whether it collapses depends on parent padding/border */
+.child{
+  margin-top: 20px;             /* candidate for collapse */
+  padding: 10px 12px;
+  color: var(--navy);
+}
+
+/* In this example, parent has NO padding ⇒ child's top margin collapses with parent's margin */
+.collapse-yes{ padding: 0; }
+
+/* Adding padding to parent prevents collapsing (border would also prevent it) */
+.collapse-no{ padding-top: 12px; }

@@ -1,0 +1,154 @@
+/* Go Birds */
+:root{
+  --bg: #f7f9fb;            /* soft backdrop */
+  --card: #ffffff;
+  --text: #0f172a;          /* slate-900 */
+  --subtle: #475569;        /* slate-600 */
+  --border: #e5e7eb;        /* gray-200 */
+  --stripe: #f1f5f9;        /* slate-100 */
+
+  /* Header uses Midnight Green */
+  --header: #004c54;        /* Eagles Midnight Green */
+  --header-text: #ffffff;
+
+  /* Accent uses Kelly Green */
+  --accent: #00843d;        /* Eagles Kelly Green */
+
+  /* Status colors */
+  --ok: #16a34a;
+  --warn: #d97706;
+  --bad: #dc2626;
+}
+
+* { box-sizing: border-box; }
+
+body{
+  margin: 0;
+  padding: 24px;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  color: var(--text);
+  background: radial-gradient(1200px 800px at 0% 0%, #e2f2ea 0%, transparent 40%), var(--bg);
+}
+
+.wrap{ max-width: 960px; margin: 0 auto; }
+
+.title{
+  margin: 0 0 12px;
+  font-size: clamp(1.25rem, 1.1rem + 1vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: .2px;
+  color: var(--text);
+}
+
+.table-card{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(2,6,23,.06);
+  overflow: hidden;
+}
+
+.table-scroll{ overflow-x: auto; }
+
+table{
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 640px; /* readable on small screens; scrolls if needed */
+}
+
+caption{
+  text-align: left;
+  padding: 16px 20px;
+  font-weight: 700;
+  color: var(--subtle);
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(to right, #e6f2f3, transparent);
+}
+
+thead th{
+  background: linear-gradient(180deg, var(--header), #01383f);
+  color: var(--header-text);
+  text-align: left;
+  padding: 14px 16px;
+  font-size: .925rem;
+  letter-spacing: .3px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+tbody td, tfoot td{
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+
+tbody tr:nth-child(even) td{ background: var(--stripe); }
+
+tbody tr:hover td{
+  background: #e9f6f0; 
+  transition: background .15s ease;
+}
+
+/* Make row-spanned category cells stand out */
+tbody td[rowspan]{ font-weight: 600; color: var(--subtle); }
+
+tfoot td{
+  background: #f8fafb;
+  font-weight: 700;
+}
+
+/* Status badges */
+.status{
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: .8125rem;
+  font-weight: 700;
+  line-height: 1;
+  border: 1px solid rgba(0,0,0,.06);
+  background: #fff;
+}
+.in  { color: var(--ok);   box-shadow: inset 0 0 0 999px rgba(22,163,74,.08); }
+.low { color: var(--warn); box-shadow: inset 0 0 0 999px rgba(217,119,6,.1); }
+.out { color: var(--bad);  box-shadow: inset 0 0 0 999px rgba(220,38,38,.1); }
+
+/* Price alignment & formatting helpers */
+td.price{ font-variant-numeric: tabular-nums; text-align: right; }
+
+/* Category color chips — Eagles edition */
+.cat{
+  font-weight: 700;
+  color: var(--cat-text, var(--text));
+  background: var(--cat-bg, var(--stripe));
+  border-left: 6px solid var(--cat-accent, var(--border));
+}
+tbody tr:nth-child(even) td.cat{ background: var(--cat-bg, var(--stripe)); }
+tbody tr:hover td.cat{ filter: brightness(1.03); }
+
+/* Electronics = Kelly Green */
+.cat-electronics{
+  --cat-bg: #e9f6f0;     /* soft kelly tint */
+  --cat-accent: #00843d; /* Kelly Green */
+  --cat-text: #053b2b;   /* deep green text */
+}
+
+/* Home & Kitchen = Team Silver */
+.cat-home{
+  --cat-bg: #f4f6f8;     /* silver tint */
+  --cat-accent: #a5acaf; /* Eagles Silver */
+  --cat-text: #1f2937;   /* slate-800 for contrast */
+}
+
+/* Clothing = Midnight Green */
+.cat-clothing{
+  --cat-bg: #e6f2f3;     /* soft midnight tint */
+  --cat-accent: #004c54; /* Midnight Green */
+  --cat-text: #022c2f;   /* deep teal text */
+}
+
+/* Small screens */
+@media (max-width: 560px){
+  tbody td, tfoot td { padding: 10px 12px; }
+}

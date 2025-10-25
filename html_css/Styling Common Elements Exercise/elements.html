@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Styling Common Elements</title>
+
+        <!--Favicon-->
+        <link rel="icon" type="image/png" href="images/JK_Logo-removebg-preview.png">
+
+        <link rel="stylesheet" href="elements.css">
+    </head>
+
+    <body>
+        <header class="site-header">
+            <nav class="nav">
+                <a class="nav_brand" href="#">JK</a>
+                <ul class="nav_links">
+                    <li><a href="#" class="link">Home</a></li>
+                    <li><a href="#" class="link">About</a></li>
+                    <li><a href="#" class="link">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="container">
+            <!--Task 1: font styling (heading + two paragraphs)-->
+            <section>
+                <h1 class="page-title">Design with Restrain</h1>
+                
+                <p class="lede">
+                    Minimal interfaces create space for intent. When the noise drops, the message lands.
+                </p>
+
+                <p class="italic">
+                    This paragraph is intentionally italicized to demonstrate emphasis through typography.
+                </p>
+            </section>
+
+            <!--Task 2: text layout (alignment, line/letter/ word spacing, first-line indent, justified block)-->
+            <section>
+                <h2 class="section-title">Text Layout</h2>
+
+                <p class="indented">
+                    This is a justified paragraph that uses careful hyphenation and justification settings to
+                    avoid rivers of white space. The goal is balanced text blocks that still feel natural and
+                    calm on the page.
+                </p>
+            </section>
+
+            <!--Task 3: lists (UL + OL with custom markers and spacing)-->
+            <section>
+                <h2 class="section-title">Lists</h2>
+
+                <div class="lists">
+                    <div>
+                        <h3 class="mini">Unordered</h3>
+                        <ul class="list-unstyled">
+                            <li>Clarity over noise</li>
+                            <li>Texture over trends</li>
+                            <li>Structure over spectacle</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="mini">Ordered (Roman numerals</h3>
+                        <ol class="list-roman">
+                            <li>Define the problem</li>
+                            <li>Design the system</li>
+                            <li>Deliver the details</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <!--Task 4: link states-->
+            <section>
+                <h2 class="section-title">Link States</h2>
+                <p>
+                    Explore these:
+                    <a class="link" href="#">Minimal Principles</a>
+                    <a class="link" href="#">Interface Studies</a>
+                    <a class="link" href="#">Contact</a>
+                </p>
+            </section>
+
+             <!--Task 5: image sizing and responsiveness-->
+             <section>
+                 <h2 class="section-title">Responsive Media</h2>
+                 <figure class="media-frame">
+                     <img src="images/Jaha.jpeg" alt="Portrait of Jaha Knight" class="media-img">
+                     <figcaption class="mini">Fixed width preserved aspect ratio; scales responsively.</figcaption>
+                 </figure>
+             </section>
+        </main>
+    </body>
+</html>

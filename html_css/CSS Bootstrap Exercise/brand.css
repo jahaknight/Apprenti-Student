@@ -1,0 +1,39 @@
+:root{
+    /* neutral palette */
+    --bg: #f5f3ee;
+    --text: #1a1a1a;
+    --navy: #0f2233;
+    --edge: #d4c7b9;
+  
+    /* map to Bootstrap tokens */
+    --bs-body-bg: var(--bg);
+    --bs-body-color: var(--text);
+    --bs-border-color: var(--edge);
+  
+    /* optional brand accents */
+    --bs-primary: var(--navy);
+    --bs-secondary: #bfa98e; /* taupe-gold accent */
+  }
+
+  body{
+      font-family: "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      background-color: var(--bs-body-bg);
+      color: var(--bs-body-color);
+  }
+
+  /* Card & border polish (keeps Bootstrap structure) */
+  .card{ border-color:var(--bs-border-color);}
+  .card.shadow-sm{ box-shadow: 0 .25rem .75rem rgba(15,34,51,.08) !important; }
+
+  .bg-light{ background-color: #fff !important; }
+
+  .btn-primary{
+      background-color: var(--bs-primary);
+      border-color: var(--bs-primary);
+  }
+
+  .btn-outline-light{
+      --bs-btn-hover-bg: rgba(255,255,255,15);
+      --bs-btn-hover-border-color: #fff;
+  }
+
